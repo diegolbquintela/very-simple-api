@@ -1,0 +1,28 @@
+{
+  "name": "very-simple-api",
+  "version": "1.0.0",
+  "description": "Very Simple Rest API Built with Node, using MongoDB database.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "nodemon app.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/diegolbquintela/very-simple-api.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/diegolbquintela/very-simple-api/issues"
+  },
+  "homepage": "https://github.com/diegolbquintela/very-simple-api#readme",
+  "dependencies": {
+    "body-parser": "^1.19.1",
+    "express": "^4.17.2"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.15"
+  }
+}
