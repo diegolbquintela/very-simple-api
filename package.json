@@ -20,7 +20,8 @@
   "homepage": "https://github.com/diegolbquintela/very-simple-api#readme",
   "dependencies": {
     "body-parser": "^1.19.1",
-    "express": "^4.17.2"
+    "express": "^4.17.2",
+    "uuid": "^8.3.2"
   },
   "devDependencies": {
     "nodemon": "^2.0.15"
