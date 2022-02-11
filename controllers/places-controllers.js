@@ -1,4 +1,5 @@
 const { v4: uuid4 } = require('uuid'); //v4 with timestamp component
+const expressValidator = require('express-validator');
 
 const HttpError = require('../models/http-error');
 
@@ -50,6 +51,12 @@ const getPlaceByUserId = (req, res, next) => {
 };
 
 const createPlace = (req, res, next) => {
+  const errors = expressValidator.validationResult(req);
+  if (errors.isEmpty()) {
+    res.status(422);
+    throw new HttpError('Invalid inputs passed.', 422);
+  }
+
   const { title, description, coordinates, creator } = req.body;
 
   const createdPlace = {
