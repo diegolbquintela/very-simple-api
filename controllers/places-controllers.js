@@ -2,6 +2,7 @@ const { v4: uuid4 } = require('uuid'); //v4 with timestamp component
 const expressValidator = require('express-validator');
 
 const HttpError = require('../models/http-error');
+const getCoordsForAddress = require('../util/location');
 
 let DUMMY_PLACES = [
   {
@@ -12,9 +13,9 @@ let DUMMY_PLACES = [
     location: {
       lat: 40.4168,
       lng: 3.7038,
-      // address: 'Madrid, Spain', TODO:
-      creator: 'u1',
     },
+    address: 'Madrid, Spain',
+    creator: 'u1',
   },
 ];
 
@@ -52,12 +53,14 @@ const getPlaceByUserId = (req, res, next) => {
 
 const createPlace = (req, res, next) => {
   const errors = expressValidator.validationResult(req);
-  if (errors.isEmpty()) {
+  if (!errors.isEmpty()) {
     res.status(422);
     throw new HttpError('Invalid inputs passed.', 422);
   }
 
-  const { title, description, coordinates, creator } = req.body;
+  const { title, description, creator, address } = req.body;
+
+  let coordinates = getCoordsForAddress(address);
 
   const createdPlace = {
     id: uuid4(),
