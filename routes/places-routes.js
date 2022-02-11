@@ -6,7 +6,7 @@ const HttpError = require('../models/http-error');
 
 const router = express.Router();
 
-router.get('/:pid', placesControllers.getPlaceById);
+router.get('/:pid', placesControllers.getPlacesById);
 
 router.get('/user/:uid', placesControllers.getPlaceByUserId);
 
