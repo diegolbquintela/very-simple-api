@@ -3,6 +3,7 @@ const expressValidator = require('express-validator');
 
 const HttpError = require('../models/http-error');
 const getCoordsForAddress = require('../util/location');
+const Place = require('../models/place');
 
 let DUMMY_PLACES = [
   {
@@ -51,7 +52,7 @@ const getPlaceByUserId = (req, res, next) => {
   res.json({ place });
 };
 
-const createPlace = (req, res, next) => {
+const createPlace = async (req, res, next) => {
   const errors = expressValidator.validationResult(req);
   if (!errors.isEmpty()) {
     res.status(422);
@@ -62,16 +63,22 @@ const createPlace = (req, res, next) => {
 
   let coordinates = getCoordsForAddress(address);
 
-  const createdPlace = {
-    id: uuid4(),
+  const createdPlace = new Place({
     title,
     description,
-    location: coordinates,
     address,
+    location: coordinates,
+    image:
+      'https://en.wikipedia.org/wiki/File:Mus%C3%A9e_Saint-Raymond_-_Ra_57_-_Prima_porta_-_4640.jpg',
     creator,
-  };
+  });
 
-  DUMMY_PLACES.push(createdPlace);
+  try {
+    await createdPlace.save();
+  } catch (err) {
+    const error = new HttpError('Creating place failed, please try again', 500);
+    return next(error);
+  }
 
   res.status(201).json({ place: createdPlace });
 };
