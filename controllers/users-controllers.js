@@ -52,7 +52,7 @@ const signup = async (req, res, next) => {
     image:
       'https://en.wikipedia.org/wiki/File:Mus%C3%A9e_Saint-Raymond_-_Ra_57_-_Prima_porta_-_4640.jpg',
     password,
-    places,
+    places: [],
   });
 
   try {
